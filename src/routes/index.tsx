@@ -31,7 +31,6 @@ import { BackgroundFX, ScrollProgress } from "@/components/portfolio/Background"
 import { Navbar } from "@/components/portfolio/Navbar";
 import { Reveal, SectionHeading } from "@/components/portfolio/Reveal";
 
-import profileImg from "@/assets/bano-profile.jpg";
 import carInspectImg from "@/assets/project-carinspect.jpg";
 import ragImg from "@/assets/project-rag.jpg";
 
@@ -53,12 +52,6 @@ export const Route = createFileRoute("/")({
 
 /* -------------------------------- data -------------------------------- */
 
-const HERO_ROLES = [
-  "AI & Machine Learning Engineer",
-  "Computer Vision Enthusiast",
-  "OCR & LLM Developer",
-  "Software Engineer",
-];
 
 const STATS = [
   { value: "2", label: "Featured AI Projects" },
