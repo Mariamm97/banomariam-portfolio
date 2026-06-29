@@ -31,6 +31,7 @@ import { BackgroundFX, ScrollProgress } from "@/components/portfolio/Background"
 import { Navbar } from "@/components/portfolio/Navbar";
 import { Reveal, SectionHeading } from "@/components/portfolio/Reveal";
 
+import banoProfileImg from "@/assets/bano-profile.jpeg";
 import carInspectImg from "@/assets/project-carinspect.jpg";
 import ragImg from "@/assets/project-rag.jpg";
 
@@ -71,27 +72,45 @@ const WHAT_I_DO = [
   { icon: Rocket, title: "AI Research & Prototyping", desc: "Rapidly turning new AI research into working prototypes." },
 ];
 
-const SKILLS: { group: string; items: string[] }[] = [
-  { group: "Programming Languages", items: ["Python", "Java", "C++", "Dart"] },
+const SKILLS: { group: string; icon: typeof Brain; items: string[] }[] = [
+  { group: "Programming Languages", icon: Cpu, items: ["Python", "Java", "C++", "Dart"] },
   {
     group: "AI & Machine Learning",
+    icon: Brain,
     items: ["Machine Learning", "Deep Learning", "Computer Vision", "OCR", "YOLOv8", "LLMs", "RAG", "Image Processing"],
   },
   {
     group: "Libraries & Frameworks",
+    icon: Sparkles,
     items: ["TensorFlow", "OpenCV", "Scikit-learn", "NumPy", "Pandas", "Sentence Transformers", "ChromaDB", "FastAPI", "Flutter", "Firebase"],
   },
-  { group: "Tools", items: ["Git", "GitHub", "Docker", "VS Code", "Google Colab"] },
+  { group: "Tools", icon: Rocket, items: ["Git", "GitHub", "Docker", "VS Code", "Google Colab"] },
   {
     group: "Core Concepts",
+    icon: Server,
     items: ["REST APIs", "Semantic Search", "Embeddings", "Vector Databases", "Prompt Engineering", "Feature Engineering", "Model Training", "Data Preprocessing"],
   },
 ];
 
 const CERTS = [
-  { title: "IBM AI Practitioner", issuer: "IBM", icon: Award },
-  { title: "Supervised Machine Learning", issuer: "Coursera", icon: Brain },
-  { title: "Kaggle Python Course", issuer: "Kaggle", icon: FileText },
+  {
+    title: "IBM AI Practitioner",
+    issuer: "IBM",
+    icon: Award,
+    href: "https://www.linkedin.com/safety/go/?url=https%3A%2F%2Fskills.yourlearning.ibm.com%2Fcertificate%2Fshare%2F39b424d5bdewogICJvYmplY3RUeXBlIiA6ICJBQ1RJVklUWSIsCiAgIm9iamVjdElkIiA6ICJQTEFOLTAyNTQxNDBFQTBGQSIsCiAgImxlYXJuZXJDTlVNIiA6ICI3NDAzNTc1UkVHIgp99a66c39f60-10&urlhash=hTbs&mt=zeJmW41g2Hkfr6Ma7ZUZPHxcKDFc8R-L3_Ojiu2PLgoFxEsch_YX1wQk40s9OPZAMOBvzQLns7sPTrXgtf1nsGtNa1wW&isSdui=true&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BcTSKNmheSBOp7%2FtGkxiqDQ%3D%3D",
+  },
+  {
+    title: "Supervised Machine Learning",
+    issuer: "Coursera",
+    icon: Brain,
+    href: "https://www.coursera.org/account/accomplishments/verify/TLUDPYC1CNNT",
+  },
+  {
+    title: "Kaggle Python Course",
+    issuer: "Kaggle",
+    icon: FileText,
+    href: "https://www.kaggle.com/learn/certification/banomariam/python",
+  },
 ];
 
 /* ------------------------------- component ------------------------------ */
@@ -105,11 +124,13 @@ function Portfolio() {
 
       <main className="relative">
         <Hero />
+        <Achievements />
         <About />
         <Experience />
         <Projects />
         <WhatIDo />
         <Skills />
+        <CurrentFocus />
         <Certifications />
         <Contact />
       </main>
@@ -169,7 +190,7 @@ function Hero() {
         <div>
           <Reveal>
             <span
-              className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium"
+              className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium shadow-[0_0_20px_rgba(74,222,128,0.12)]"
               style={{
                 background: "color-mix(in oklab, oklch(0.7 0.18 155) 12%, transparent)",
                 border: "1px solid color-mix(in oklab, oklch(0.7 0.18 155) 35%, transparent)",
@@ -191,30 +212,35 @@ function Hero() {
           </Reveal>
 
           <Reveal delay={0.05}>
-            <p className="mt-7 font-display text-base font-medium uppercase tracking-[0.18em] text-muted-foreground">
+            <p className="mt-7 font-display text-[0.8rem] font-semibold uppercase tracking-[0.28em] text-muted-foreground/80">
               Hi, I'm
             </p>
-            <h1 className="mt-2 font-display text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
-              <span className="text-gradient">Bano Mariam</span>
+            <h1 className="relative mt-2 inline-block font-display text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+              <span className="relative z-10 text-gradient">Bano Mariam</span>
+              <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-[radial-gradient(circle,oklch(0.78_0.15_210/0.22),transparent_70%)] blur-2xl" />
             </h1>
           </Reveal>
 
           <Reveal delay={0.12}>
             <p className="mt-6 font-display text-lg font-medium text-foreground sm:text-xl">
-              Software Engineer
+              <span className="text-foreground">Software Engineer</span>
               <span className="mx-3 text-muted-foreground/60">|</span>
-              <span className="text-foreground/90">AI</span>
-              <span className="mx-2 text-muted-foreground/60">•</span>
-              <span className="text-foreground/90">Machine Learning</span>
-              <span className="mx-2 text-muted-foreground/60">•</span>
-              <span className="text-foreground/90">Computer Vision</span>
+              <span className="text-foreground/90">AI/ML Engineer</span>
             </p>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <h2 className="mt-4 font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
-              <TypewriterLine text="Building Intelligent Systems for Real-World Problems" />
+            <h2 className="mt-4 max-w-2xl font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
+              <TypewriterLine text="Building Intelligent AI Systems with Computer Vision & LLMs" />
             </h2>
+          </Reveal>
+
+          <Reveal delay={0.25}>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
+              Software Engineering graduate from COMSATS University Lahore with hands-on experience in AI, Machine Learning,
+              Computer Vision, OCR, Retrieval-Augmented Generation (RAG), and Large Language Models. Passionate about building
+              intelligent solutions that solve real-world problems.
+            </p>
           </Reveal>
 
           <Reveal delay={0.3}>
@@ -231,7 +257,8 @@ function Hero() {
                 <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
               </a>
               <a
-                href="#contact"
+                href="/resume.pdf"
+                download
                 className="glass inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-colors hover:text-foreground"
               >
                 <Download className="h-4 w-4" />
@@ -249,11 +276,18 @@ function Hero() {
 
           <Reveal delay={0.4}>
             <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {STATS.map((s) => (
-                <div key={s.label} className="glass rounded-2xl px-4 py-4">
+              {STATS.map((s, index) => (
+                <motion.div
+                  key={s.label}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.35 }}
+                  transition={{ duration: 0.45, delay: index * 0.08 }}
+                  className="glass rounded-2xl px-4 py-4 transition-transform duration-300 hover:-translate-y-1"
+                >
                   <div className="font-display text-2xl font-semibold text-gradient">{s.value}</div>
                   <div className="mt-1 text-xs text-muted-foreground">{s.label}</div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </Reveal>
@@ -263,12 +297,21 @@ function Hero() {
         <Reveal delay={0.2}>
           <div className="relative mx-auto aspect-square w-[300px] sm:w-[360px] lg:w-[400px]">
             {/* outer glow halo */}
-            <div
-              className="absolute -inset-8 rounded-full blur-3xl opacity-60 animate-float-slow"
+            <motion.div
+              animate={{ scale: [1, 1.04, 1], opacity: [0.55, 0.8, 0.55] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -inset-8 rounded-full blur-3xl"
               style={{
                 background:
                   "conic-gradient(from 180deg at 50% 50%, oklch(0.78 0.15 210 / 0.55), oklch(0.65 0.24 295 / 0.55), oklch(0.7 0.2 320 / 0.55), oklch(0.78 0.15 210 / 0.55))",
               }}
+            />
+
+            <motion.div
+              animate={{ scale: [0.96, 1.05, 0.96], opacity: [0.24, 0.36, 0.24] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute inset-4 rounded-full blur-3xl"
+              style={{ background: "radial-gradient(circle, oklch(0.78 0.15 210 / 0.35), transparent 70%)" }}
             />
 
             {/* rotating gradient ring */}
@@ -286,17 +329,19 @@ function Hero() {
             </motion.div>
 
             {/* inner glow ring */}
-            <div className="absolute inset-3 rounded-full glow-purple">
-              {/* photo placeholder */}
-              <label
-                htmlFor="profile-upload"
-                className="group relative flex h-full w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-full text-center"
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="absolute inset-3 rounded-full glow-purple"
+            >
+              <div
+                className="group relative flex h-full w-full items-center justify-center overflow-hidden rounded-full text-center"
                 style={{
                   background:
                     "radial-gradient(circle at 50% 35%, oklch(0.28 0.05 280) 0%, oklch(0.16 0.03 280) 70%)",
                 }}
               >
-                {/* subtle inner grid */}
                 <span
                   aria-hidden
                   className="pointer-events-none absolute inset-0 rounded-full opacity-30"
@@ -306,42 +351,21 @@ function Hero() {
                     backgroundSize: "28px 28px",
                   }}
                 />
-                {/* user silhouette */}
-                <svg
-                  viewBox="0 0 200 200"
-                  className="relative h-[55%] w-[55%] opacity-90"
-                  fill="none"
-                  aria-hidden
-                >
-                  <defs>
-                    <linearGradient id="ph-grad" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="oklch(0.78 0.15 210)" />
-                      <stop offset="100%" stopColor="oklch(0.65 0.24 295)" />
-                    </linearGradient>
-                  </defs>
-                  <circle cx="100" cy="78" r="34" stroke="url(#ph-grad)" strokeWidth="3" />
-                  <path
-                    d="M40 178c8-32 32-50 60-50s52 18 60 50"
-                    stroke="url(#ph-grad)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
 
-                <div className="relative mt-4 px-6">
-                  <div className="font-display text-sm font-semibold text-foreground/90">
-                    Upload your photo
-                  </div>
-                  <div className="mt-1 text-[11px] text-muted-foreground">
-                    PNG or JPG · square crop
-                  </div>
+                <motion.img
+                  src={banoProfileImg}
+                  alt="Bano Mariam"
+                  whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 rounded-full bg-background/20" />
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full border border-white/30 bg-background/70 px-4 py-2 text-[11px] font-semibold text-foreground backdrop-blur-sm">
+                  Bano Mariam
                 </div>
 
-                {/* hover overlay */}
                 <span className="absolute inset-0 rounded-full bg-foreground/0 transition-colors group-hover:bg-foreground/[0.04]" />
-                <input id="profile-upload" type="file" accept="image/*" className="sr-only" />
-              </label>
-            </div>
+              </div>
+            </motion.div>
 
             {/* floating tech badges */}
             {FLOATING_TECH.map((t) => (
@@ -383,6 +407,85 @@ function Hero() {
   );
 }
 
+/* ----------------------------- Achievements ------------------------------ */
+
+const ACHIEVEMENTS = [
+  {
+    icon: Trophy,
+    emoji: "🏆",
+    title: "2nd Position — Final Year Projects",
+    desc: "Secured 2nd Position among all Software Engineering Final Year Projects at COMSATS University Lahore.",
+    tone: "gold" as const,
+  },
+  {
+    icon: Briefcase,
+    emoji: "🏢",
+    title: "Industrial FYP with CacheLogic",
+    desc: "Completed an Industrial Final Year Project in collaboration with CacheLogic, building a production AI vehicle inspection system.",
+    tone: "cyan" as const,
+  },
+  {
+    icon: Award,
+    emoji: "🤖",
+    title: "IBM AI Practitioner Certification",
+    desc: "Earned the IBM AI Practitioner certification, strengthening foundations in applied machine learning and AI workflows.",
+    tone: "purple" as const,
+  },
+];
+
+function Achievements() {
+  return (
+    <section id="achievements" className="relative px-5 py-32">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading
+          eyebrow="Achievements"
+          title={<>Recognized for <span className="text-gradient">impact</span>.</>}
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          {ACHIEVEMENTS.map((a, i) => (
+            <Reveal key={a.title} delay={i * 0.08}>
+              <div className="group glass-strong relative h-full overflow-hidden rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-2">
+                <span
+                  className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-70"
+                  style={{
+                    background:
+                      a.tone === "gold"
+                        ? "oklch(0.78 0.16 80 / 0.45)"
+                        : a.tone === "cyan"
+                        ? "oklch(0.78 0.15 210 / 0.45)"
+                        : "oklch(0.65 0.24 295 / 0.45)",
+                  }}
+                />
+                <div className="relative">
+                  <div
+                    className="grid h-14 w-14 place-items-center rounded-2xl text-2xl"
+                    style={{
+                      background:
+                        a.tone === "gold"
+                          ? "linear-gradient(135deg, oklch(0.78 0.16 80 / 0.25), oklch(0.65 0.2 60 / 0.3))"
+                          : a.tone === "cyan"
+                          ? "linear-gradient(135deg, oklch(0.78 0.15 210 / 0.25), oklch(0.65 0.2 230 / 0.3))"
+                          : "linear-gradient(135deg, oklch(0.65 0.24 295 / 0.25), oklch(0.7 0.2 320 / 0.3))",
+                      border: "1px solid color-mix(in oklab, currentColor 25%, transparent)",
+                    }}
+                  >
+                    {a.emoji}
+                  </div>
+                  <h3 className="mt-5 font-display text-lg font-semibold leading-snug">
+                    {a.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {a.desc}
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /* --------------------------------- About -------------------------------- */
 
@@ -471,50 +574,84 @@ function Experience() {
         />
         <Reveal>
           <div className="relative">
-            <span className="absolute left-4 top-3 h-[calc(100%-3rem)] w-px sm:left-6" style={{ background: "linear-gradient(to bottom, oklch(0.78 0.15 210 / 0.5), oklch(0.65 0.24 295 / 0.5), transparent)" }} />
+            <motion.span
+              initial={{ scaleY: 0.6, opacity: 0.6 }}
+              whileInView={{ scaleY: 1, opacity: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="absolute left-4 top-3 h-[calc(100%-3rem)] w-[2px] origin-top rounded-full sm:left-6"
+              style={{ background: "linear-gradient(to bottom, oklch(0.78 0.15 210), oklch(0.65 0.24 295), transparent)" }}
+            />
             <div className="relative pl-12 sm:pl-16">
-              <span
-                className="absolute left-0 top-2 grid h-9 w-9 place-items-center rounded-full sm:left-2"
+              <motion.span
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                className="absolute left-0 top-2 grid h-10 w-10 place-items-center rounded-full border border-white/20 sm:left-2"
                 style={{
                   background: "linear-gradient(135deg, oklch(0.78 0.15 210), oklch(0.65 0.24 295))",
-                  boxShadow: "0 0 0 6px oklch(0.65 0.24 295 / 0.15)",
+                  boxShadow: "0 0 0 6px oklch(0.65 0.24 295 / 0.15), 0 0 24px oklch(0.78 0.15 210 / 0.35)",
                 }}
               >
                 <Briefcase className="h-4 w-4 text-background" />
-              </span>
+              </motion.span>
 
-              <div className="glass rounded-3xl p-6 sm:p-8">
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="glass rounded-3xl p-6 sm:p-8"
+              >
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <h3 className="font-display text-xl font-semibold sm:text-2xl">
-                      Software Engineer Intern
+                      Software Engineer - AI/ML
                     </h3>
                     <p className="mt-1 text-sm text-muted-foreground">
-                      CacheLogic · Industrial Final Year Project
+                      CacheLogic · Internship
                     </p>
                   </div>
-                  <span className="chip">Jan 2025 – Jun 2025</span>
+                  <div className="flex flex-col items-end gap-1">
+                    <span className="chip">Jun 2025 – Jun 2026</span>
+                    <span className="text-xs text-muted-foreground">Lahore, Punjab, Pakistan · On-site</span>
+                  </div>
                 </div>
 
                 <ul className="mt-5 grid gap-3 sm:grid-cols-2">
                   {[
-                    "Developed AI-powered vehicle inspection modules.",
-                    "Built end-to-end Computer Vision pipelines.",
-                    "Implemented VIN recognition using OCR and YOLOv8.",
-                    "Developed repaint detection and fraud detection techniques.",
-                    "Worked with Python, FastAPI, OpenCV, and Deep Learning.",
-                  ].map((b) => (
-                    <li key={b} className="flex gap-2 text-sm text-muted-foreground">
+                    "Developed CarInspect, an AI-powered vehicle inspection system enabling smartphone-based, automated used-car inspections.",
+                    "Built VIN verification using AI-powered OCR and computer vision to detect tampering and verify authenticity.",
+                    "Implemented repaint detection using advanced image processing techniques to identify hidden vehicle repairs.",
+                    "Designed dent and scratch detection using deep learning and computer vision for automated surface damage assessment.",
+                    "Built inspection report generation and secure storage system for future reference.",
+                  ].map((b, index) => (
+                    <motion.li
+                      key={b}
+                      initial={{ opacity: 0, x: -8 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, amount: 0.35 }}
+                      transition={{ duration: 0.35, delay: index * 0.06, ease: "easeOut" }}
+                      className="flex gap-2 text-sm text-muted-foreground"
+                    >
                       <span
                         className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
                         style={{ background: "oklch(0.78 0.15 210)" }}
                       />
                       <span>{b}</span>
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
 
-                <div className="mt-6 flex items-center gap-3 rounded-2xl border border-border p-4" style={{ background: "linear-gradient(135deg, oklch(0.65 0.24 295 / 0.1), oklch(0.78 0.15 210 / 0.06))" }}>
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.45, ease: "easeOut" }}
+                  className="mt-6 flex items-center gap-3 rounded-2xl border border-border p-4"
+                  style={{ background: "linear-gradient(135deg, oklch(0.65 0.24 295 / 0.1), oklch(0.78 0.15 210 / 0.06))" }}
+                >
                   <span
                     className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl"
                     style={{ background: "linear-gradient(135deg, oklch(0.78 0.15 210), oklch(0.65 0.24 295))" }}
@@ -529,8 +666,8 @@ function Experience() {
                       COMSATS University, Lahore Campus
                     </div>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         </Reveal>
@@ -554,19 +691,19 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
-    title: "Car Inspect — AI-Powered Vehicle Inspection",
+    title: "Car Inspect — AI-Powered Vehicle Inspection System",
     description:
-      "Industrial AI project developed with CacheLogic for automated vehicle inspection — damage, VIN, repaint and fraud detection across a full Computer Vision pipeline.",
+      "Industrial FYP with CacheLogic focused on smartphone-based computer vision for automated vehicle inspection, damage assessment, VIN authentication, repaint detection, and fraud detection.",
     image: carInspectImg,
     features: [
-      "Vehicle Damage Detection",
-      "VIN & Chassis Recognition",
-      "VIN Tampering Detection",
-      "Repaint Detection",
-      "OCR Pipeline",
-      "Image Processing",
+      "Smartphone-based automated inspections",
+      "Physics-informed repaint detection",
+      "VIN & chassis authentication",
+      "VIN tampering detection",
+      "Structural damage assessment",
+      "Advanced image preprocessing",
     ],
-    tech: ["Python", "YOLOv8", "OpenCV", "FastAPI", "OCR", "TensorFlow", "Deep Learning"],
+    tech: ["Python", "YOLOv8", "OpenCV", "OCR", "FastAPI", "TensorFlow", "Deep Learning"],
     badges: [
       { label: "Industrial Project", tone: "purple" },
       { label: "🏆 2nd Position FYP", tone: "gold" },
@@ -594,97 +731,115 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
   const [open, setOpen] = useState(false);
   return (
     <Reveal delay={index * 0.05}>
-      <article className="group glass relative overflow-hidden rounded-3xl">
-        <div className="relative aspect-[16/9] overflow-hidden">
-          <img
-            src={p.image}
-            alt={p.title}
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-          <div className="absolute left-4 top-4 flex flex-wrap gap-2">
-            {p.badges.map((b) => (
-              <span
-                key={b.label}
-                className="chip backdrop-blur-md"
-                style={
-                  b.tone === "gold"
-                    ? { background: "oklch(0.78 0.16 80 / 0.18)", borderColor: "oklch(0.78 0.16 80 / 0.45)", color: "oklch(0.92 0.1 90)" }
-                    : b.tone === "cyan"
-                    ? { background: "oklch(0.78 0.15 210 / 0.18)", borderColor: "oklch(0.78 0.15 210 / 0.45)" }
-                    : undefined
-                }
-              >
-                {b.label}
-              </span>
-            ))}
+      <motion.article
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        whileHover={{ y: -6, scale: 1.01, transition: { duration: 0.25, ease: "easeOut" } }}
+        className="group relative overflow-hidden rounded-[1.75rem] p-[1px]"
+      >
+        <div className="pointer-events-none absolute inset-0 rounded-[1.75rem] bg-[linear-gradient(135deg,oklch(0.78_0.15_210/0.55),oklch(0.65_0.24_295/0.55),transparent_70%)] bg-[length:200%_200%] opacity-80 animate-[spin_8s_linear_infinite]" />
+        <div className="absolute inset-0 rounded-[1.75rem] bg-[radial-gradient(circle_at_top,oklch(0.78_0.15_210/0.22),transparent_55%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <div className="relative overflow-hidden rounded-[1.65rem] border border-white/10 bg-background/80 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+          <div className="relative m-3 aspect-[16/9] overflow-hidden rounded-[1.3rem]">
+            <img
+              src={p.image}
+              alt={p.title}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110 group-hover:saturate-105"
+              style={{ objectPosition: "center top" }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+            <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+              {p.badges.map((b) => (
+                <span
+                  key={b.label}
+                  className="rounded-full border border-white/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] shadow-[0_8px_20px_-10px_rgba(0,0,0,0.45)] backdrop-blur-md transition-transform duration-300 hover:-translate-y-0.5"
+                  style={
+                    b.tone === "gold"
+                      ? { background: "oklch(0.78 0.16 80 / 0.18)", borderColor: "oklch(0.78 0.16 80 / 0.45)", color: "oklch(0.92 0.1 90)" }
+                      : b.tone === "cyan"
+                      ? { background: "oklch(0.78 0.15 210 / 0.18)", borderColor: "oklch(0.78 0.15 210 / 0.45)" }
+                      : { background: "color-mix(in oklab, oklch(0.65 0.24 295) 14%, transparent)" }
+                  }
+                >
+                  {b.label}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className="p-6">
-          <h3 className="font-display text-xl font-semibold sm:text-2xl">{p.title}</h3>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
+          <div className="px-6 pb-6 pt-2">
+            <h3 className="font-display text-xl font-semibold sm:text-2xl">{p.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.description}</p>
 
-          <div className="mt-5 flex flex-wrap gap-1.5">
-            {p.tech.map((t) => (
-              <span key={t} className="chip">{t}</span>
-            ))}
-          </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {p.tech.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-border/80 bg-white/5 px-2.75 py-1 text-[11px] font-semibold tracking-wide text-foreground/80 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-400/40 hover:text-foreground"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
 
-          <div
-            className="grid overflow-hidden transition-[grid-template-rows] duration-500"
-            style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-          >
-            <div className="min-h-0">
-              <div className="mt-5 rounded-2xl border border-border p-4">
+            <motion.div
+              initial={false}
+              animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="overflow-hidden"
+            >
+              <div className="mt-5 rounded-2xl border border-border/80 bg-white/[0.03] p-4">
                 <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Key Features</div>
                 <ul className="grid gap-2 sm:grid-cols-2">
                   {p.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-sm">
+                    <li key={f} className="flex items-center gap-2 text-sm text-foreground/85">
                       <span className="h-1.5 w-1.5 rounded-full" style={{ background: "oklch(0.78 0.15 210)" }} />
                       {f}
                     </li>
                   ))}
                 </ul>
               </div>
+            </motion.div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-2">
+              <motion.button
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setOpen((v) => !v)}
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-colors hover:text-foreground"
+                style={{ background: "color-mix(in oklab, oklch(0.65 0.24 295) 14%, transparent)", border: "1px solid color-mix(in oklab, oklch(0.65 0.24 295) 30%, transparent)" }}
+              >
+                {open ? "Hide details" : "View details"}
+                <ArrowDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+              </motion.button>
+              {p.github && (
+                <a
+                  href={p.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-background/50 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:text-foreground"
+                >
+                  <Github className="h-3.5 w-3.5" />
+                  Code
+                </a>
+              )}
+              {p.demo && (
+                <a
+                  href={p.demo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-background/50 px-4 py-2 text-xs font-semibold text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:text-foreground"
+                >
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                  Live Demo
+                </a>
+              )}
             </div>
           </div>
-
-          <div className="mt-6 flex flex-wrap items-center gap-2">
-            <button
-              onClick={() => setOpen((v) => !v)}
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-colors hover:text-foreground"
-              style={{ background: "color-mix(in oklab, oklch(0.65 0.24 295) 14%, transparent)", border: "1px solid color-mix(in oklab, oklch(0.65 0.24 295) 30%, transparent)" }}
-            >
-              {open ? "Hide details" : "View details"}
-              <ArrowDown className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
-            </button>
-            {p.github && (
-              <a
-                href={p.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground"
-              >
-                <Github className="h-3.5 w-3.5" />
-                Code
-              </a>
-            )}
-            {p.demo && (
-              <a
-                href={p.demo}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-semibold text-muted-foreground hover:text-foreground"
-              >
-                <ArrowUpRight className="h-3.5 w-3.5" />
-                Live Demo
-              </a>
-            )}
-          </div>
         </div>
-      </article>
+      </motion.article>
     </Reveal>
   );
 }
@@ -767,31 +922,97 @@ function Skills() {
           title={<>The <span className="text-gradient">stack</span> I work with.</>}
         />
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {SKILLS.map((g, i) => (
-            <Reveal key={g.group} delay={i * 0.05}>
-              <div className="glass h-full rounded-2xl p-5">
-                <div className="mb-4 flex items-center gap-2">
+          {SKILLS.map((g, i) => {
+            const Icon = g.icon;
+            return (
+              <Reveal key={g.group} delay={i * 0.05}>
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.01, transition: { duration: 0.2 } }}
+                  className="group relative h-full overflow-hidden rounded-[1.35rem] border border-border/70 bg-background/60 p-5 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.55)] backdrop-blur-xl transition-all duration-300"
+                >
+                  <div className="absolute inset-0 rounded-[1.35rem] bg-[radial-gradient(circle_at_top_left,oklch(0.78_0.15_210/0.16),transparent_55%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="relative">
+                    <div className="mb-4 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="grid h-10 w-10 place-items-center rounded-2xl border border-border/70"
+                          style={{
+                            background: "linear-gradient(135deg, oklch(0.78 0.15 210 / 0.2), oklch(0.65 0.24 295 / 0.3))",
+                          }}
+                        >
+                          <Icon className="h-4 w-4" style={{ color: "oklch(0.85 0.1 240)" }} />
+                        </span>
+                        <h3 className="font-display text-sm font-semibold uppercase tracking-[0.22em]">
+                          {g.group}
+                        </h3>
+                      </div>
+                      <span className="h-2.5 w-2.5 rounded-full" style={{ background: "linear-gradient(135deg, oklch(0.78 0.15 210), oklch(0.65 0.24 295))", boxShadow: "0 0 10px oklch(0.65 0.24 295)" }} />
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {g.items.map((s) => (
+                        <motion.span
+                          key={s}
+                          whileHover={{ y: -3, scale: 1.02, transition: { duration: 0.18 } }}
+                          className="rounded-full border border-border/80 px-2.75 py-1 text-[11px] font-semibold tracking-wide text-muted-foreground transition-all duration-300 hover:border-cyan-400/40 hover:text-foreground"
+                          style={{ background: "color-mix(in oklab, oklch(0.65 0.24 295) 8%, transparent)" }}
+                        >
+                          {s}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ----------------------------- Current Focus ------------------------------ */
+
+const CURRENT_FOCUS = [
+  "Retrieval-Augmented Generation",
+  "Large Language Models",
+  "AI Agents",
+  "Hugging Face",
+  "PyTorch",
+  "Backend AI Development",
+];
+
+function CurrentFocus() {
+  return (
+    <section id="current-focus" className="relative px-5 py-32">
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading
+          eyebrow="Current Focus"
+          title={<>Always <span className="text-gradient">leveling up</span>.</>}
+          subtitle="I enjoy continuously learning emerging AI technologies and building intelligent systems that solve practical real-world problems."
+        />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {CURRENT_FOCUS.map((label, i) => (
+            <Reveal key={label} delay={i * 0.05}>
+              <div
+                className="group glass relative overflow-hidden rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-1"
+                style={{
+                  boxShadow: "0 0 0 1px color-mix(in oklab, oklch(0.65 0.24 295) 18%, transparent)",
+                }}
+              >
+                <span
+                  className="pointer-events-none absolute -left-8 -bottom-8 h-28 w-28 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-60"
+                  style={{ background: "oklch(0.78 0.15 210 / 0.5)" }}
+                />
+                <div className="relative flex items-center gap-3">
                   <span
-                    className="h-2 w-2 rounded-full"
+                    className="h-2.5 w-2.5 flex-shrink-0 rounded-full animate-pulse"
                     style={{
                       background: "linear-gradient(135deg, oklch(0.78 0.15 210), oklch(0.65 0.24 295))",
                       boxShadow: "0 0 10px oklch(0.65 0.24 295)",
                     }}
                   />
-                  <h3 className="font-display text-sm font-semibold uppercase tracking-wider">
-                    {g.group}
-                  </h3>
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {g.items.map((s) => (
-                    <span
-                      key={s}
-                      className="rounded-lg border border-border px-2.5 py-1 text-xs font-medium text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-transparent hover:text-foreground"
-                      style={{ background: "color-mix(in oklab, oklch(0.65 0.24 295) 6%, transparent)" }}
-                    >
-                      {s}
-                    </span>
-                  ))}
+                  <span className="font-display text-base font-semibold">{label}</span>
                 </div>
               </div>
             </Reveal>
@@ -815,7 +1036,12 @@ function Certifications() {
         <div className="grid gap-5 md:grid-cols-3">
           {CERTS.map((c, i) => (
             <Reveal key={c.title} delay={i * 0.06}>
-              <div className="glass group h-full rounded-2xl p-5 transition-transform hover:-translate-y-1">
+              <a
+                href={c.href}
+                target="_blank"
+                rel="noreferrer"
+                className="glass group flex h-full flex-col rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1"
+              >
                 <div className="flex items-start justify-between">
                   <div
                     className="grid h-11 w-11 place-items-center rounded-xl"
@@ -830,7 +1056,11 @@ function Certifications() {
                 </div>
                 <h3 className="mt-5 font-display text-base font-semibold">{c.title}</h3>
                 <p className="mt-1 text-xs text-muted-foreground">{c.issuer}</p>
-              </div>
+                <div className="mt-5 inline-flex items-center gap-2 text-xs font-semibold text-foreground/80 transition-colors group-hover:text-foreground">
+                  View certificate
+                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
+              </a>
             </Reveal>
           ))}
         </div>
@@ -852,7 +1082,7 @@ function Contact() {
     <section id="contact" className="relative px-5 py-32">
       <div className="mx-auto max-w-5xl">
         <Reveal>
-          <div className="glass-strong relative overflow-hidden rounded-3xl p-8 sm:p-12">
+          <div className="glass-strong relative overflow-hidden rounded-[1.85rem] p-8 sm:p-12">
             <span
               className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full blur-3xl"
               style={{ background: "oklch(0.65 0.24 295 / 0.3)" }}
@@ -861,6 +1091,7 @@ function Contact() {
               className="pointer-events-none absolute -left-20 -bottom-20 h-72 w-72 rounded-full blur-3xl"
               style={{ background: "oklch(0.78 0.15 210 / 0.25)" }}
             />
+            <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,oklch(0.78_0.15_210/0.12),transparent_45%)]" />
 
             <div className="relative grid gap-10 lg:grid-cols-[1.1fr_1fr]">
               <div>
@@ -871,7 +1102,7 @@ function Contact() {
                 <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
                   Let's build <span className="text-gradient">something intelligent</span>.
                 </h2>
-                <p className="mt-4 max-w-md text-base text-muted-foreground">
+                <p className="mt-4 max-w-md text-base leading-8 text-muted-foreground">
                   Open to Associate Software Engineer and AI/ML roles, internships and
                   freelance Computer Vision projects. I'll get back within a day.
                 </p>
@@ -883,7 +1114,7 @@ function Contact() {
                       <Wrap
                         key={it.label}
                         {...(it.href ? { href: it.href } : {})}
-                        className="group flex items-center gap-4 rounded-2xl border border-border p-3 transition-colors hover:border-transparent"
+                        className="group flex items-center gap-4 rounded-2xl border border-border/70 p-3.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-400/40"
                         style={{ background: "color-mix(in oklab, oklch(0.65 0.24 295) 6%, transparent)" }}
                       >
                         <span
@@ -908,44 +1139,54 @@ function Contact() {
 
               <div className="flex flex-col justify-between gap-6">
                 <div className="grid grid-cols-2 gap-4">
-                  <a
+                  <motion.a
+                    whileHover={{ y: -4, scale: 1.01, transition: { duration: 0.2 } }}
                     href="https://www.linkedin.com/in/banomariam/"
                     target="_blank"
                     rel="noreferrer"
-                    className="group glass flex flex-col items-start justify-between gap-6 rounded-2xl p-5 transition-transform hover:-translate-y-1"
+                    className="group glass relative overflow-hidden rounded-[1.3rem] p-5 transition-all duration-300"
                   >
-                    <Linkedin className="h-6 w-6" style={{ color: "oklch(0.78 0.15 210)" }} />
-                    <div>
-                      <div className="text-xs text-muted-foreground">Connect on</div>
-                      <div className="font-display text-base font-semibold">LinkedIn</div>
+                    <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,oklch(0.78_0.15_210/0.2),transparent_55%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    <div className="relative flex flex-col items-start justify-between gap-6">
+                      <Linkedin className="h-6 w-6" style={{ color: "oklch(0.78 0.15 210)" }} />
+                      <div>
+                        <div className="text-xs text-muted-foreground">Connect on</div>
+                        <div className="font-display text-base font-semibold">LinkedIn</div>
+                      </div>
                     </div>
-                  </a>
-                  <a
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ y: -4, scale: 1.01, transition: { duration: 0.2 } }}
                     href="https://github.com/Mariamm97"
                     target="_blank"
                     rel="noreferrer"
-                    className="group glass flex flex-col items-start justify-between gap-6 rounded-2xl p-5 transition-transform hover:-translate-y-1"
+                    className="group glass relative overflow-hidden rounded-[1.3rem] p-5 transition-all duration-300"
                   >
-                    <Github className="h-6 w-6" style={{ color: "oklch(0.85 0.05 290)" }} />
-                    <div>
-                      <div className="text-xs text-muted-foreground">Code on</div>
-                      <div className="font-display text-base font-semibold">GitHub</div>
+                    <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,oklch(0.65_0.24_295/0.2),transparent_55%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    <div className="relative flex flex-col items-start justify-between gap-6">
+                      <Github className="h-6 w-6" style={{ color: "oklch(0.85 0.05 290)" }} />
+                      <div>
+                        <div className="text-xs text-muted-foreground">Code on</div>
+                        <div className="font-display text-base font-semibold">GitHub</div>
+                      </div>
                     </div>
-                  </a>
+                  </motion.a>
                 </div>
 
-                <a
+                <motion.a
+                  whileHover={{ y: -3, scale: 1.01, transition: { duration: 0.2 } }}
                   href="mailto:banomariam97@gmail.com"
-                  className="group inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                  className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-[1.3rem] px-6 py-4 text-sm font-semibold text-white"
                   style={{
                     background: "linear-gradient(135deg, oklch(0.78 0.15 210), oklch(0.65 0.24 295))",
-                    boxShadow: "0 12px 40px -10px oklch(0.65 0.24 295 / 0.6)",
+                    boxShadow: "0 16px 48px -16px oklch(0.65 0.24 295 / 0.7)",
                   }}
                 >
-                  <Mail className="h-4 w-4" />
-                  Send me an email
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
+                  <span className="absolute inset-0 bg-[linear-gradient(90deg,transparent,oklch(1_1_1/0.18),transparent)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <Mail className="relative h-4 w-4" />
+                  <span className="relative">Send me an email</span>
+                  <ArrowUpRight className="relative h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </motion.a>
               </div>
             </div>
           </div>
