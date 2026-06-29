@@ -129,75 +129,103 @@ function Portfolio() {
 
 /* ---------------------------------- Hero --------------------------------- */
 
-function Typewriter({ words }: { words: string[] }) {
-  const [i, setI] = useState(0);
-  const [text, setText] = useState("");
-  const [del, setDel] = useState(false);
+function TypewriterLine({ text }: { text: string }) {
+  const [out, setOut] = useState("");
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const current = words[i % words.length];
-    const speed = del ? 40 : 70;
-    const t = setTimeout(() => {
-      if (!del) {
-        setText(current.slice(0, text.length + 1));
-        if (text.length + 1 === current.length) setTimeout(() => setDel(true), 1400);
-      } else {
-        setText(current.slice(0, Math.max(0, text.length - 1)));
-        if (text.length - 1 <= 0) {
-          setDel(false);
-          setI((v) => v + 1);
-        }
+    setOut("");
+    setDone(false);
+    let i = 0;
+    const id = setInterval(() => {
+      i += 1;
+      setOut(text.slice(0, i));
+      if (i >= text.length) {
+        clearInterval(id);
+        setDone(true);
       }
-    }, speed);
-    return () => clearTimeout(t);
-  }, [text, del, i, words]);
+    }, 45);
+    return () => clearInterval(id);
+  }, [text]);
 
   return (
-    <span className="text-gradient">
-      {text}
-      <span className="ml-0.5 inline-block w-[2px] animate-caret" style={{ background: "oklch(0.78 0.15 210)" }}>
-        &nbsp;
-      </span>
+    <span className="inline-flex items-baseline">
+      <span className="text-gradient">{out}</span>
+      <span
+        className={`ml-1 inline-block h-[0.9em] w-[2px] translate-y-[2px] ${done ? "animate-caret" : ""}`}
+        style={{ background: "oklch(0.78 0.15 210)" }}
+      />
     </span>
   );
 }
 
+const FLOATING_TECH: { label: string; pos: string; delay: string; tone: "cyan" | "purple" }[] = [
+  { label: "Python",          pos: "-left-6 top-6",                 delay: "-0s",  tone: "cyan" },
+  { label: "YOLOv8",          pos: "-right-6 top-16",               delay: "-1.5s", tone: "purple" },
+  { label: "Computer Vision", pos: "-left-10 top-1/2 -translate-y-1/2", delay: "-3s",  tone: "purple" },
+  { label: "FastAPI",         pos: "-right-10 top-1/2 -translate-y-1/2", delay: "-4.5s", tone: "cyan" },
+  { label: "LLMs",            pos: "-left-2 bottom-10",             delay: "-2s",  tone: "purple" },
+  { label: "RAG",             pos: "-right-4 bottom-6",             delay: "-3.5s", tone: "cyan" },
+];
+
 function Hero() {
   return (
-    <section id="home" className="relative flex min-h-screen items-center px-5 pt-28">
-      <div className="mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+    <section id="home" className="relative flex min-h-screen items-center px-5 pt-28 pb-16">
+      <div className="mx-auto grid w-full max-w-6xl gap-14 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+        {/* Left: copy */}
         <div>
           <Reveal>
-            <span className="chip">
+            <span
+              className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium"
+              style={{
+                background: "color-mix(in oklab, oklch(0.7 0.18 155) 12%, transparent)",
+                border: "1px solid color-mix(in oklab, oklch(0.7 0.18 155) 35%, transparent)",
+                color: "oklch(0.92 0.06 155)",
+              }}
+            >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" style={{ background: "oklch(0.78 0.15 210)" }} />
-                <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: "oklch(0.78 0.15 210)" }} />
+                <span
+                  className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+                  style={{ background: "oklch(0.72 0.2 150)" }}
+                />
+                <span
+                  className="relative inline-flex h-2 w-2 rounded-full"
+                  style={{ background: "oklch(0.72 0.2 150)", boxShadow: "0 0 10px oklch(0.72 0.2 150)" }}
+                />
               </span>
-              Available for Associate SE & AI/ML roles
+              Available for Associate Software Engineer &amp; AI/ML Roles
             </span>
           </Reveal>
 
           <Reveal delay={0.05}>
-            <h1 className="mt-6 font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
-              Hi, I'm{" "}
-              <span className="text-gradient">Bano Mariam</span>.
-              <br />
-              <span className="text-foreground/80">I build </span>
-              <Typewriter words={HERO_ROLES} />
+            <p className="mt-7 font-display text-base font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Hi, I'm
+            </p>
+            <h1 className="mt-2 font-display text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+              <span className="text-gradient">Bano Mariam</span>
             </h1>
           </Reveal>
 
-          <Reveal delay={0.15}>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Software Engineering graduate from COMSATS University Lahore, specializing in
-              Artificial Intelligence, Machine Learning, Computer Vision, OCR and Large
-              Language Models. I love building intelligent systems that solve real-world
-              problems.
+          <Reveal delay={0.12}>
+            <p className="mt-6 font-display text-lg font-medium text-foreground sm:text-xl">
+              Software Engineer
+              <span className="mx-3 text-muted-foreground/60">|</span>
+              <span className="text-foreground/90">AI</span>
+              <span className="mx-2 text-muted-foreground/60">•</span>
+              <span className="text-foreground/90">Machine Learning</span>
+              <span className="mx-2 text-muted-foreground/60">•</span>
+              <span className="text-foreground/90">Computer Vision</span>
             </p>
           </Reveal>
 
-          <Reveal delay={0.25}>
-            <div className="mt-8 flex flex-wrap gap-3">
+          <Reveal delay={0.2}>
+            <h2 className="mt-4 font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
+              <TypewriterLine text="Building Intelligent Systems for Real-World Problems" />
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.3}>
+            <div className="mt-9 flex flex-wrap gap-3">
               <a
                 href="#projects"
                 className="group inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
@@ -226,7 +254,7 @@ function Hero() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.35}>
+          <Reveal delay={0.4}>
             <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {STATS.map((s) => (
                 <div key={s.label} className="glass rounded-2xl px-4 py-4">
@@ -238,15 +266,19 @@ function Hero() {
           </Reveal>
         </div>
 
-        {/* Portrait */}
+        {/* Right: portrait placeholder */}
         <Reveal delay={0.2}>
-          <div className="relative mx-auto aspect-square w-[300px] sm:w-[380px] lg:w-[420px]">
+          <div className="relative mx-auto aspect-square w-[300px] sm:w-[360px] lg:w-[400px]">
+            {/* outer glow halo */}
             <div
-              className="absolute -inset-6 rounded-full blur-2xl opacity-60 animate-float-slow"
+              className="absolute -inset-8 rounded-full blur-3xl opacity-60 animate-float-slow"
               style={{
-                background: "conic-gradient(from 180deg at 50% 50%, oklch(0.78 0.15 210 / 0.55), oklch(0.65 0.24 295 / 0.55), oklch(0.7 0.2 320 / 0.55), oklch(0.78 0.15 210 / 0.55))",
+                background:
+                  "conic-gradient(from 180deg at 50% 50%, oklch(0.78 0.15 210 / 0.55), oklch(0.65 0.24 295 / 0.55), oklch(0.7 0.2 320 / 0.55), oklch(0.78 0.15 210 / 0.55))",
               }}
             />
+
+            {/* rotating gradient ring */}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -259,40 +291,105 @@ function Hero() {
             >
               <div className="h-full w-full rounded-full bg-background" />
             </motion.div>
-            <div className="absolute inset-3 overflow-hidden rounded-full glow-purple">
-              <img
-                src={profileImg}
-                alt="Bano Mariam"
-                width={420}
-                height={420}
-                className="h-full w-full object-cover"
-              />
+
+            {/* inner glow ring */}
+            <div className="absolute inset-3 rounded-full glow-purple">
+              {/* photo placeholder */}
+              <label
+                htmlFor="profile-upload"
+                className="group relative flex h-full w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-full text-center"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 35%, oklch(0.28 0.05 280) 0%, oklch(0.16 0.03 280) 70%)",
+                }}
+              >
+                {/* subtle inner grid */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-full opacity-30"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, oklch(0.65 0.24 295 / 0.18) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.65 0.24 295 / 0.18) 1px, transparent 1px)",
+                    backgroundSize: "28px 28px",
+                  }}
+                />
+                {/* user silhouette */}
+                <svg
+                  viewBox="0 0 200 200"
+                  className="relative h-[55%] w-[55%] opacity-90"
+                  fill="none"
+                  aria-hidden
+                >
+                  <defs>
+                    <linearGradient id="ph-grad" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="oklch(0.78 0.15 210)" />
+                      <stop offset="100%" stopColor="oklch(0.65 0.24 295)" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="100" cy="78" r="34" stroke="url(#ph-grad)" strokeWidth="3" />
+                  <path
+                    d="M40 178c8-32 32-50 60-50s52 18 60 50"
+                    stroke="url(#ph-grad)"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+                </svg>
+
+                <div className="relative mt-4 px-6">
+                  <div className="font-display text-sm font-semibold text-foreground/90">
+                    Upload your photo
+                  </div>
+                  <div className="mt-1 text-[11px] text-muted-foreground">
+                    PNG or JPG · square crop
+                  </div>
+                </div>
+
+                {/* hover overlay */}
+                <span className="absolute inset-0 rounded-full bg-foreground/0 transition-colors group-hover:bg-foreground/[0.04]" />
+                <input id="profile-upload" type="file" accept="image/*" className="sr-only" />
+              </label>
             </div>
-            {/* floating chips */}
-            <div className="absolute -left-4 top-10 glass rounded-2xl px-3 py-2 text-xs font-medium animate-float-slow" style={{ animationDelay: "-2s" }}>
-              <div className="flex items-center gap-2">
-                <Brain className="h-3.5 w-3.5" style={{ color: "oklch(0.78 0.15 210)" }} />
-                AI / ML
+
+            {/* floating tech badges */}
+            {FLOATING_TECH.map((t) => (
+              <div
+                key={t.label}
+                className={`absolute ${t.pos} glass animate-float-slow rounded-full px-3 py-1.5 text-[11px] font-semibold whitespace-nowrap`}
+                style={{
+                  animationDelay: t.delay,
+                  borderColor:
+                    t.tone === "cyan"
+                      ? "color-mix(in oklab, oklch(0.78 0.15 210) 40%, transparent)"
+                      : "color-mix(in oklab, oklch(0.65 0.24 295) 40%, transparent)",
+                  boxShadow:
+                    t.tone === "cyan"
+                      ? "0 8px 28px -10px oklch(0.78 0.15 210 / 0.55)"
+                      : "0 8px 28px -10px oklch(0.65 0.24 295 / 0.55)",
+                }}
+              >
+                <span className="flex items-center gap-1.5">
+                  <span
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{
+                      background:
+                        t.tone === "cyan" ? "oklch(0.78 0.15 210)" : "oklch(0.65 0.24 295)",
+                      boxShadow:
+                        t.tone === "cyan"
+                          ? "0 0 8px oklch(0.78 0.15 210)"
+                          : "0 0 8px oklch(0.65 0.24 295)",
+                    }}
+                  />
+                  {t.label}
+                </span>
               </div>
-            </div>
-            <div className="absolute -right-4 top-1/3 glass rounded-2xl px-3 py-2 text-xs font-medium animate-float-slow">
-              <div className="flex items-center gap-2">
-                <Eye className="h-3.5 w-3.5" style={{ color: "oklch(0.65 0.24 295)" }} />
-                Computer Vision
-              </div>
-            </div>
-            <div className="absolute -bottom-2 left-8 glass rounded-2xl px-3 py-2 text-xs font-medium animate-float-slow" style={{ animationDelay: "-4s" }}>
-              <div className="flex items-center gap-2">
-                <Sparkles className="h-3.5 w-3.5" style={{ color: "oklch(0.78 0.15 210)" }} />
-                LLMs & RAG
-              </div>
-            </div>
+            ))}
           </div>
         </Reveal>
       </div>
     </section>
   );
 }
+
 
 /* --------------------------------- About -------------------------------- */
 
