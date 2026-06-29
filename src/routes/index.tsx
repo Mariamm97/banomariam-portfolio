@@ -224,8 +224,10 @@ function Hero() {
           <Reveal delay={0.12}>
             <p className="mt-6 font-display text-lg font-medium text-foreground sm:text-xl">
               <span className="text-foreground">Software Engineer</span>
-              <span className="mx-3 text-muted-foreground/60">|</span>
-              <span className="text-foreground/90">AI/ML Engineer</span>
+              <span className="mx-3 text-muted-foreground/60">•</span>
+              <span className="text-foreground/90">AI/ML</span>
+              <span className="mx-3 text-muted-foreground/60">•</span>
+              <span className="text-foreground/90">Computer Vision</span>
             </p>
           </Reveal>
 
@@ -237,9 +239,9 @@ function Hero() {
 
           <Reveal delay={0.25}>
             <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-              Software Engineering graduate from COMSATS University Lahore with hands-on experience in AI, Machine Learning,
-              Computer Vision, OCR, Retrieval-Augmented Generation (RAG), and Large Language Models. Passionate about building
-              intelligent solutions that solve real-world problems.
+              AI/ML Engineer specializing in Computer Vision, OCR, Retrieval-Augmented Generation (RAG),
+              and Large Language Models. Passionate about building intelligent production-ready systems that solve
+              real-world problems.
             </p>
           </Reveal>
 
@@ -541,7 +543,7 @@ function About() {
                 <p className="mt-1 text-sm text-muted-foreground">
                   COMSATS University Islamabad, Lahore Campus
                 </p>
-                <p className="mt-2 text-xs text-muted-foreground">Graduation Year: 2026</p>
+                <p className="mt-2 text-xs text-muted-foreground">Graduation Year: 2022–2026</p>
               </div>
 
               <div className="mt-6 grid grid-cols-2 gap-3">
@@ -1203,15 +1205,7 @@ function Footer() {
     <footer className="relative border-t border-border px-5 py-10">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-xs text-muted-foreground sm:flex-row">
         <div className="flex items-center gap-1.5">
-          Designed and developed by{" "}
-          <span className="font-semibold text-foreground">Bano Mariam</span>
-          <motion.span
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-            className="inline-flex"
-          >
-            <Heart className="h-3.5 w-3.5 fill-current" style={{ color: "oklch(0.7 0.22 20)" }} />
-          </motion.span>
+          Built with React • TypeScript • Tailwind • Framer Motion
         </div>
         <div>© {new Date().getFullYear()} Bano Mariam. All rights reserved.</div>
       </div>
