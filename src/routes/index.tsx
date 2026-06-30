@@ -259,8 +259,8 @@ function Hero() {
                 <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
               </a>
               <a
-                href="/resume.pdf"
-                download
+                href="/bano-mariam-resume-20260630.pdf"
+                download="Bano_Mariam_Resume.pdf"
                 className="glass inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-colors hover:text-foreground"
               >
                 <Download className="h-4 w-4" />
