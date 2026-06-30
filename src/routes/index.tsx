@@ -712,20 +712,19 @@ const PROJECTS: Project[] = [
     ],
   },
   {
-    title: "RAG Document Intelligence Assistant",
+    title: "DocuMind AI — Enterprise Document Intelligence Platform",
     description:
-      "Intelligent RAG application that ingests PDFs, DOCX and Markdown files and answers natural-language questions with source-grounded responses.",
+      "Built a full-stack RAG-based document intelligence platform for querying PDF, DOCX, TXT, and CSV documents using natural language.",
     image: ragImg,
     features: [
-      "Semantic Search",
-      "Vector Database",
-      "Embeddings",
-      "Source-grounded Responses",
-      "FastAPI Backend",
-      "LLM Integration",
+      "RAG pipeline with document chunking",
+      "Sentence Transformer embeddings and FAISS vector search",
+      "Groq Llama 3 grounded responses with source citations",
+      "Next.js frontend and FastAPI backend for upload, indexing, and conversational search",
     ],
-    tech: ["FastAPI", "Sentence Transformers", "ChromaDB", "Python", "Embeddings", "Claude API"],
-    badges: [{ label: "Currently Building", tone: "cyan" }],
+    tech: ["Next.js", "FastAPI", "Python", "Sentence Transformers", "FAISS", "Groq", "Llama 3", "RAG"],
+    badges: [{ label: "RAG Project", tone: "cyan" }],
+    github: "https://github.com/Mariamm97/DocuMind-RAG",
   },
 ];
 
