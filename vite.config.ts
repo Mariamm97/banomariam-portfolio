@@ -7,6 +7,7 @@ export default defineConfig({
     },
   },
   vite: {
+    base: "/",
     css: {
       transformer: "postcss",
     },
